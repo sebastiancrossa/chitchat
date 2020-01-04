@@ -11,7 +11,7 @@ const App = () => {
     <BrowserRouter>
       <Switch>
         <Route exact path="/" component={JoinRoom} />
-        <Route exact path="/" component={Chat} />
+        <Route exact path="/chat" component={Chat} />
 
         <Route component={() => <h1>404</h1>} />
       </Switch>

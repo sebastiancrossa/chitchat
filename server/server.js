@@ -23,5 +23,6 @@ io.on("connection", socket => {
 
 // Middleware
 app.use(router);
+app.use(cors());
 
 server.listen(PORT, () => console.log(`Server running on port ${PORT}`));
