@@ -1,11 +1,22 @@
+// Libraries
 import React from "react";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 
-function App() {
+// Page Imports
+import JoinRoom from "./pages/JoinRoom";
+import Chat from "./pages/Chat";
+
+const App = () => {
   return (
-    <div className="App">
-      <h1>Chit chat</h1>
-    </div>
+    <BrowserRouter>
+      <Switch>
+        <Route exact path="/" component={JoinRoom} />
+        <Route exact path="/" component={Chat} />
+
+        <Route component={() => <h1>404</h1>} />
+      </Switch>
+    </BrowserRouter>
   );
-}
+};
 
 export default App;
