@@ -4,6 +4,8 @@ const socketio = require("socket.io");
 const http = require("http");
 const cors = require("cors");
 
+const { addUser, removeUser, getUser, getUsersInRoom } = require("./users");
+
 const router = require("./router");
 
 // Initialization
@@ -14,11 +16,18 @@ const PORT = process.env.PORT || 5000;
 
 // SocketIO
 io.on("connection", socket => {
-  console.log("New connection --");
-
   // Do when a socket emits the event 'join'
-  socket.on("join", ({ name, room }) => {
-    console.log(name, room);
+  socket.on("join", ({ name, room }, callback) => {
+    const { error, user } = addUser({
+      // We desctructure error and user because the funcion only returns one of those two
+      id: socket.id,
+      name,
+      room
+    });
+
+    if (error) return callback(error);
+
+    socket.join(user.room);
   });
 
   socket.on("disconnect", () => {
