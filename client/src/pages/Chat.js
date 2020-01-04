@@ -8,6 +8,7 @@ import io from "socket.io-client";
 import InfoBar from "../containers/Chat/InfoBar";
 import Messages from "../containers/Chat/Messages";
 import Input from "../containers/Chat/Input";
+import TextContainer from "../containers/Chat/TextContainer";
 
 let socket;
 
@@ -18,6 +19,7 @@ const Chat = ({ location }) => {
     ""
   );
   const [messages, setMessages] = useState([]);
+  const [users, setUsers] = useState([]);
 
   const ENDPOINT = "localhost:5000";
 
@@ -32,12 +34,6 @@ const Chat = ({ location }) => {
     socket.emit("join", { name, room }, error => {
       if (error) alert(error);
     });
-
-    // Called when unmounted
-    return () => {
-      socket.emit("disconnect");
-      socket.off();
-    };
   }, [ENDPOINT, location.search]);
 
   // In charge of handling the messages sent by the users
@@ -45,6 +41,16 @@ const Chat = ({ location }) => {
     socket.on("message", message => {
       setMessages([...messages, message]);
     });
+
+    socket.on("roomData", ({ users }) => {
+      setUsers(users);
+    });
+
+    // Called when unmounted
+    return () => {
+      socket.emit("disconnect");
+      socket.off();
+    };
   }, [messages]);
 
   const sendMessage = e => {
@@ -65,17 +71,8 @@ const Chat = ({ location }) => {
           onMessageChange={onMessageChange}
           sendMessage={sendMessage}
         />
+        <TextContainer users={users} />
       </div>
-
-      {/*
-      <input
-        type="text"
-        placeholder="Message..."
-        value={message}
-        onChange={onMessageChange}
-        onKeyPress={e => (e.key === "Enter" ? sendMessage(e) : null)}
-      />
-      */}
     </div>
   );
 };

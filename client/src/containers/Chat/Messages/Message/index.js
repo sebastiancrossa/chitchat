@@ -2,20 +2,20 @@
 import React from "react";
 import ReactEmoji from "react-emoji";
 
-const Message = ({ message, name }) => {
+const Message = ({ message: { user, text }, name }) => {
   let sentByCurrentUser = false;
   const trimmedName = name.trim().toLowerCase();
 
-  if (message.user === trimmedName) sentByCurrentUser = true;
+  if (user === trimmedName) sentByCurrentUser = true;
 
   return sentByCurrentUser ? (
     <div>
-      <p>{ReactEmoji.emojify(message.text)}</p>
+      <p>{ReactEmoji.emojify(text)}</p>
     </div>
   ) : (
     <div>
-      <p>{ReactEmoji.emojify(message.text)}</p>
-      <p>{message.user}</p>
+      <p>{ReactEmoji.emojify(text)}</p>
+      <p>{user}</p>
     </div>
   );
 };
