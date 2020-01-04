@@ -16,6 +16,11 @@ const PORT = process.env.PORT || 5000;
 io.on("connection", socket => {
   console.log("New connection --");
 
+  // Do when a socket emits the event 'join'
+  socket.on("join", ({ name, room }) => {
+    console.log(name, room);
+  });
+
   socket.on("disconnect", () => {
     console.log("Connection left --");
   });

@@ -19,7 +19,13 @@ const Room = ({ location }) => {
     setName(name);
     setRoom(room);
 
-    console.log(socket);
+    socket.emit("join", { name, room });
+
+    // Called when unmounted
+    return () => {
+      socket.emit("disconnect");
+      socket.off();
+    };
   }, [ENDPOINT, location.search]);
 
   return (
