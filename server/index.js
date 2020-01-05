@@ -20,6 +20,8 @@ app.use(cors());
 
 // SocketIO
 io.on("connection", socket => {
+  console.log("user connected");
+
   // Do when a socket emits the event 'join'
   socket.on("join", ({ name, room }, callback) => {
     const { error, user } = addUser({

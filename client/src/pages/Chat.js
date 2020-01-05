@@ -14,14 +14,16 @@ let socket;
 
 const Chat = ({ location }) => {
   const [name, setName] = useState("");
+  // eslint-disable-next-line
   const [room, setRoom] = useState("");
+  // eslint-disable-next-line
   const [message, setMessage, onMessageChange, resetMessage] = useInputState(
     ""
   );
   const [messages, setMessages] = useState([]);
   const [users, setUsers] = useState([]);
 
-  const ENDPOINT = "localhost:5000";
+  const ENDPOINT = "https://chitchat-backend.herokuapp.com/";
 
   useEffect(() => {
     const { name, room } = queryString.parse(location.search);

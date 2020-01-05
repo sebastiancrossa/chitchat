@@ -4,7 +4,9 @@ import { Link } from "react-router-dom";
 import useInputState from "../../../hooks/useInputState";
 
 const Form = () => {
+  // eslint-disable-next-line
   const [name, setName, onNameChange, resetName] = useInputState("");
+  // eslint-disable-next-line
   const [room, setRoom, onRoomChange, resetRoom] = useInputState("");
 
   const handleSignIn = () => {
